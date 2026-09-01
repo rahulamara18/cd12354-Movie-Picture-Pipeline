@@ -8,9 +8,11 @@ on:
       - "starter/backend/**"
 
   workflow_dispatch:
+
 jobs:
   lint:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: starter/backend
@@ -22,7 +24,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.10"
 
       - name: Install Pipenv
         run: pip install pipenv
@@ -35,6 +37,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+
     defaults:
       run:
         working-directory: starter/backend
@@ -46,7 +49,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: "3.10"
 
       - name: Install Pipenv
         run: pip install pipenv
@@ -83,7 +86,9 @@ jobs:
 
       - name: Configure kubectl for EKS
         run: |
-          aws eks update-kubeconfig --name cluster --region us-east-1
+          aws eks update-kubeconfig \
+            --name cluster \
+            --region us-east-1
 
       - name: Build Docker Image
         working-directory: starter/backend
@@ -93,7 +98,8 @@ jobs:
 
       - name: Push Docker Image to ECR
         run: |
-          docker push 426678664967.dkr.ecr.us-east-1.amazonaws.com/backend:latest
+          docker push \
+            426678664967.dkr.ecr.us-east-1.amazonaws.com/backend:latest
 
       - name: Deploy Backend to EKS
         run: |
