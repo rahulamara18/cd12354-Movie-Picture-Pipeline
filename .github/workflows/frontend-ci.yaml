@@ -58,7 +58,7 @@ jobs:
       - name: Run Tests
         run: CI=true npm test
 
-   build:
+     build:
     runs-on: ubuntu-latest
     needs: [lint, test]
 
@@ -84,7 +84,7 @@ jobs:
         run: npm ci
 
       - name: Run Tests
-        run: CI=true npm test
+        run: CI=true npm test -- --watchAll=false
 
       - name: Build Docker Image
         run: |
