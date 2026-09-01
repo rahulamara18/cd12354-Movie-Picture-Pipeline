@@ -58,7 +58,7 @@ jobs:
       - name: Run Tests
         run: CI=true npm test
 
-  build:
+   build:
     runs-on: ubuntu-latest
     needs: [lint, test]
 
@@ -72,6 +72,19 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: starter/frontend/package-lock.json
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Tests
+        run: CI=true npm test
 
       - name: Build Docker Image
         run: |
